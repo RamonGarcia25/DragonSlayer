@@ -347,7 +347,7 @@ export class DSPlayGame extends Component {
           this.setState({
             dragon: require('../Assets/Images/Dragon/dragon1.gif'),
           });
-        }, 3000);
+        }, 2500);
         break;
       // For Dragon type 2
       case 2:
@@ -363,7 +363,7 @@ export class DSPlayGame extends Component {
           this.setState({
             dragon: require('../Assets/Images/Dragon/dragon2.gif'),
           });
-        }, 3000);
+        }, 2500);
         break;
       // For Dragon type 3
       case 3:
@@ -379,7 +379,7 @@ export class DSPlayGame extends Component {
           this.setState({
             dragon: require('../Assets/Images/Dragon/dragon3.gif'),
           });
-        }, 3000);
+        }, 2500);
     }
     // Update HP bar and disabling Attack button temporarily
     switch (attackSequence) {
