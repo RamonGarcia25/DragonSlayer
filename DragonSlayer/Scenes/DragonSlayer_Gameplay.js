@@ -210,12 +210,19 @@ export class DSPlayGame extends Component {
           case 0:
             randomScore = Math.floor(Math.random() * 2) + 85;
             break;
-          case 1:
+            case 1:
             randomScore = Math.floor(Math.random() * 2) + 87;
             break;
-          case 6:
+            case 6:
             randomScore = Math.floor(Math.random() * 4) + 97;
-          default:
+            break;
+            case 4:
+            randomScore = Math.floor(Math.random() * 10) + 89;
+            break;
+            case 5:
+            randomScore = Math.floor(Math.random() * 10) + 90;
+            break;
+            default:
             randomScore = Math.floor(Math.random() * 16) + 85;
             break;
         }
