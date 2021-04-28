@@ -473,7 +473,7 @@ export class DSPlayGame extends Component {
                 // scoreBoard: false,
                 totalCoins: this.state.coins,
               });
-            }, 4000);
+            }, 4500);
             break;
         }
         break;
