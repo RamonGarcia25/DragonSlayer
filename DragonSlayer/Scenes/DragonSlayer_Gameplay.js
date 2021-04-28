@@ -170,6 +170,7 @@ export class DSPlayGame extends Component {
       showDice1: null,
       screenScore: '',
       showExplosion: null,
+      showChest: null,
       sword: require('../Assets/Images/attackbutton.png'),
       totalScore: 0,
       roundCoins: 0,
@@ -303,7 +304,7 @@ export class DSPlayGame extends Component {
               total = 0;
               total = score * dice;
               dice++;
-            } while (total <= minscore);
+            } while (total <= minscore );
             randomScore = dice;
             break;
           case 6:
@@ -441,6 +442,18 @@ export class DSPlayGame extends Component {
             break;
         }
 
+        switch (this.state.Logic)
+        {
+          case 6:
+            setTimeout(() => {
+              this.setState({
+              
+                showChest: require('../Assets/Images/chestcoin.gif')
+              });
+            }, 3000);
+            break;
+        }
+
         switch (this.state.Logic) {
           case 0:
             // Show Lose board
@@ -509,6 +522,7 @@ export class DSPlayGame extends Component {
       sword: require('../Assets/Images/attackbutton.png'),
       totalScore: 0,
       scoreBoard: false,
+      showChest: null,
       loseBoard: false,
       hpbar: require('../Assets/Images/Dragon/dragonhp_1.png'),
       totalCoins: 0,
@@ -645,6 +659,11 @@ export class DSPlayGame extends Component {
               </Animated.Text>
 
               {/* Explosion GIF (Hidden by default) */}
+
+              <Image
+                source={this.state.showChest}             
+                style={styles.explosion}></Image>
+
               <Image
                 source={this.state.showExplosion}
                 style={styles.explosion}></Image>
