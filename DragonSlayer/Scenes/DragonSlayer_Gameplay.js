@@ -101,7 +101,7 @@ export class DSPlayGame extends Component {
           break;
         case 2:
           console.log('Limiter: ' + randomNumber);
-          console.log('Expected damage: 740K - 749K');
+          console.log('Expected damage: 700K - 749K');
           console.log('Expected rewards: PHP 20.00');
           break;
         case 3:
@@ -170,10 +170,11 @@ export class DSPlayGame extends Component {
       showDice1: null,
       screenScore: '',
       showExplosion: null,
-      showChest: null,
+      showChest:null,
       sword: require('../Assets/Images/attackbutton.png'),
       totalScore: 0,
       roundCoins: 0,
+      bonusCoins: 0,
       coins: 0,
       totalCoins: 0,
       loseBoard: false,
@@ -211,25 +212,24 @@ export class DSPlayGame extends Component {
           case 0:
             randomScore = Math.floor(Math.random() * 2) + 85;
             break;
-            case 1:
+          case 1:
             randomScore = Math.floor(Math.random() * 2) + 87;
             break;
-            case 6:
+          case 4:
+           randomScore = Math.floor(Math.random() * 8) + 89;
+            break;
+          case 5:
+            randomScore = Math.floor(Math.random() * 9) + 91;
+            break;
+          case 6:
             randomScore = Math.floor(Math.random() * 4) + 97;
             break;
-            case 4:
-            randomScore = Math.floor(Math.random() * 10) + 89;
-            break;
-            case 5:
-            randomScore = Math.floor(Math.random() * 10) + 90;
-            break;
-            default:
+          default:
             randomScore = Math.floor(Math.random() * 16) + 85;
             break;
         }
 
         this.setState({
-          score1: randomScore,
           showDice1: require('../Assets/Images/Dice/dice1empty.png'),
           dice2anim1: new Animated.Value(0),
           dice2anim2: new Animated.ValueXY({x: 0, y: 0}),
@@ -262,7 +262,6 @@ export class DSPlayGame extends Component {
             break;
         }
         this.setState({
-          score2: randomScore,
           showDice2: require('../Assets/Images/Dice/dice2empty.png'),
           dice3anim1: new Animated.Value(0),
           dice3anim2: new Animated.ValueXY({x: 0, y: 0}),
@@ -304,16 +303,17 @@ export class DSPlayGame extends Component {
               total = 0;
               total = score * dice;
               dice++;
-            } while (total <= minscore );
+            } while (total <= minscore);
             randomScore = dice;
             break;
           case 6:
             randomScore = Math.floor(Math.random() * 4) + 97;
-            break;
-        }
 
+       
+
+           
+        }
         this.setState({
-          score3: randomScore,
           showDice3: require('../Assets/Images/Dice/dice3empty.png'),
           totalScore: this.state.totalScore * randomScore,
         });
@@ -327,6 +327,21 @@ export class DSPlayGame extends Component {
     });
 
     // Animate Explosion and Show score after 1 second
+
+    setTimeout(() => {
+      switch (attackSequence) {
+        case 1:
+          this.setState({score1: randomScore});
+          break;
+        case 2:
+          this.setState({score2: randomScore});
+          break;
+        case 3:
+          this.setState({score3: randomScore});
+          break;
+      }
+    }, 700);
+
     setTimeout(() => {
       this.setState({
         showExplosion: require('../Assets/Images/explosion.gif'),
@@ -355,7 +370,7 @@ export class DSPlayGame extends Component {
           this.setState({
             dragon: require('../Assets/Images/Dragon/dragon1.gif'),
           });
-        }, 2500);
+        }, 2700);
         break;
       // For Dragon type 2
       case 2:
@@ -371,7 +386,7 @@ export class DSPlayGame extends Component {
           this.setState({
             dragon: require('../Assets/Images/Dragon/dragon2.gif'),
           });
-        }, 2500);
+        }, 2700);
         break;
       // For Dragon type 3
       case 3:
@@ -387,7 +402,7 @@ export class DSPlayGame extends Component {
           this.setState({
             dragon: require('../Assets/Images/Dragon/dragon3.gif'),
           });
-        }, 2500);
+        }, 2700);
     }
     // Update HP bar and disabling Attack button temporarily
     switch (attackSequence) {
@@ -420,37 +435,71 @@ export class DSPlayGame extends Component {
 
         switch (this.state.Logic) {
           case 0:
-            this.state.coins = 0;
+            this.state.roundCoins = 0;
             break;
           case 1:
-            this.state.coins = 10;
+            this.state.roundCoins = 10;
             break;
           case 2:
-            this.state.coins = 20;
+            this.state.roundCoins = 20;
             break;
           case 3:
-            this.state.coins = 30;
+            this.state.roundCoins = 30;
             break;
           case 4:
-            this.state.coins = 40;
+            this.state.roundCoins = 40;
             break;
           case 5:
-            this.state.coins = 50;
+            this.state.roundCoins = 50;
             break;
           case 6:
-            this.state.coins = 100;
-            break;
-        }
+            let bonus = Math.floor(Math.random() * 100) + 1;
 
-        switch (this.state.Logic)
-        {
-          case 6:
-            setTimeout(() => {
-              this.setState({
+            if (bonus >= 0 && bonus <= 50) {
+              this.setState({roundCoins: 100});
+            } else if (bonus >= 51 && bonus <= 75) {
+              this.setState({roundCoins: 1000});
+             
+                setTimeout(() => {
+                  this.setState({
+                    showChest: require('../Assets/Images/chestcoin.gif'),
+                  });
+                  slash.play();
+                }, 3000);
               
-                showChest: require('../Assets/Images/chestcoin.gif')
-              });
-            }, 3000);
+            } else if (bonus >= 76 && bonus <= 90) {
+              this.setState({roundCoins: 10000});
+            
+                setTimeout(() => {
+                  this.setState({
+                    showChest: require('../Assets/Images/chestcoin.gif'),
+                  });
+                  slash.play();
+                }, 3000);
+             
+            } else if (bonus >= 91 && bonus <= 97) {
+              this.setState({roundCoins: 100000});
+             
+                setTimeout(() => {
+                  this.setState({
+                    showChest: require('../Assets/Images/chestcoin.gif'),
+                  });
+                  slash.play();
+                }, 3000);
+              
+            } else if (bonus >= 98 && bonus <= 100) {
+              this.setState({roundCoins: 1000000});
+            
+                setTimeout(() => {
+                  this.setState({
+                    showChest: require('../Assets/Images/chestcoin.gif'),
+                  });
+                  slash.play();
+                }, 3000);
+              
+            }
+
+
             break;
         }
 
@@ -460,18 +509,14 @@ export class DSPlayGame extends Component {
             setTimeout(() => {
               this.setState({
                 loseBoard: true,
-                totalCoins: this.state.coins,
               });
-            }, 4000);
+            }, 4500);
             break;
           default:
-            this.state.roundCoins = this.state.coins;
             // Show Scoreboard
             setTimeout(() => {
               this.setState({
                 scoreBoard: true,
-                // scoreBoard: false,
-                totalCoins: this.state.coins,
               });
             }, 4500);
             break;
@@ -519,13 +564,12 @@ export class DSPlayGame extends Component {
       score3: '',
       screenScore: '',
       showExplosion: null,
+      showChest:null,
       sword: require('../Assets/Images/attackbutton.png'),
       totalScore: 0,
       scoreBoard: false,
-      showChest: null,
       loseBoard: false,
       hpbar: require('../Assets/Images/Dragon/dragonhp_1.png'),
-      totalCoins: 0,
     });
   };
 
@@ -598,7 +642,6 @@ export class DSPlayGame extends Component {
             {/* Top navigation (Back button and Coins) */}
             <TopNavigation
               nav={this.props.navigation}
-              totalCoins={this.state.totalCoins}
               hpBar={this.state.hpbar}
             />
 
@@ -659,14 +702,13 @@ export class DSPlayGame extends Component {
               </Animated.Text>
 
               {/* Explosion GIF (Hidden by default) */}
-
-              <Image
-                source={this.state.showChest}             
-                style={styles.explosion}></Image>
-
               <Image
                 source={this.state.showExplosion}
                 style={styles.explosion}></Image>
+
+            <Image
+                source={this.state.showChest}
+                style={styles.chest}></Image>
 
               {/* Dice Score (Hidden by default) */}
               <View style={styles.diceScore}>
@@ -705,6 +747,7 @@ export class DSPlayGame extends Component {
             totalScore={this.state.totalScore}
             playAgain={this.PlayAgain}
             roundCoins={this.state.roundCoins}
+            bonusCoins={this.state.bonusCoins}
           />
         </View>
       </ImageBackground>
@@ -790,6 +833,13 @@ const styles = StyleSheet.create({
     marginTop: 120,
   },
   explosion: {
+    position: 'absolute',
+    top: hp('5%'),
+    height: hp('50%'),
+    width: hp('50%'),
+  },
+
+  chest: {
     position: 'absolute',
     top: hp('5%'),
     height: hp('50%'),
