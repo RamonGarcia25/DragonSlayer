@@ -25,15 +25,8 @@ const scoreboard = props => {
               source={require('../Assets/Images/Background/BG_modal_victory.png')}
               style={styles.modalBackgroundImage}>
               <View style={styles.modalInside}>
-                <View style={styles.rewardsArea}>
-                  <Image
-                    source={require('../Assets/Images/coin_peso.png')}
-                    style={styles.coinReward}
-                  />
-                  <Text style={styles.coinValue}>{props.roundCoins}</Text>
-                </View>
-
-                <View style={styles.modalScoreYS}>
+              
+                 <View style={styles.modalScoreYS}>
                   <Text style={[styles.modalScoreText, styles.modalScoreText1]}>
                     Your Score:
                   </Text>
@@ -43,6 +36,19 @@ const scoreboard = props => {
                     {props.totalScore}
                   </Text>
                 </View>
+
+
+
+                <View style={styles.rewardsArea}>
+                  <Image
+                    source={require('../Assets/Images/coin_peso.png')}
+                    style={styles.coinReward}
+                  />
+                  <Text style={styles.coinValue}>{props.roundCoins}</Text>
+                </View>
+
+
+               
 
                 <View style={styles.modalButtonSpace}>
                   <View style={styles.modalButtonSpace1}>
@@ -96,14 +102,14 @@ const styles = StyleSheet.create({
 
   // Coin Area
   coinReward: {
-    width: 30,
-    height: 30,
+    width: 80,
+    height: 80,
     resizeMode: 'cover',
     marginTop: 5,
   },
 
   coinValue: {
-    fontSize: 30,
+    fontSize: 60,
     fontFamily: 'Bombardment',
     textShadowColor: 'rgb(191,104,80)',
     textShadowOffset: {width: hp('-0.3%'), height: hp('0.4%')},
@@ -114,16 +120,17 @@ const styles = StyleSheet.create({
 
   rewardsArea: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    marginTop: 150,
-  },
-
-  modalScoreYS: {
     flex: 0.3,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginTop: 30,
+    marginTop: 20,
+  },
+
+  modalScoreYS: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginTop:125,
   },
   modalScoreText: {
     fontFamily: 'Bombardment',
@@ -133,14 +140,14 @@ const styles = StyleSheet.create({
     color: '#f0a66e',
   },
   modalScoreText1: {
-    fontSize: hp('5%'),
+    fontSize:30,
   },
   modalScoreNum: {
     flex: 0.55,
     alignItems: 'center',
   },
   modalScoreText2: {
-    fontSize: hp('9%'),
+    fontSize: 40,
   },
   modalButtonSpace: {
     flex: 1.2,
@@ -149,6 +156,7 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
   modalButtonSpace1: {
+    marginTop: 25,
     justifyContent: 'center',
     alignItems: 'center',
   },
